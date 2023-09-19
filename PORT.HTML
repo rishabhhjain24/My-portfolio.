@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Portfolio</title>
+  <style>
+    /* General styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+    /* Header styles */
+    header {
+      background-color: #4158d0;
+      color: #fff;
+      text-align: center;
+      padding: 2rem 0;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      margin: 0;
+    }
+
+    /* Navigation styles */
+    nav {
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #fff;
+      font-size: 1.6rem;
+      margin: 0 1rem;
+    }
+
+    /* Portfolio styles */
+    .portfolio {
+      text-align: center;
+      padding: 4rem 0;
+    }
+
+    .title {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .filter-buttons {
+      margin-bottom: 2rem;
+    }
+
+    .filter-button {
+      background-color: #4158d0;
+      color: #fff;
+      border: none;
+      border-radius: 0.4rem;
+      padding: 1rem 2rem;
+      font-size: 1.6rem;
+      cursor: pointer;
+      transition: 0.3s;
+      margin-right: 1rem;
+    }
+
+    .filter-button:hover {
+      background-color: #041a86;
+    }
+
+    .portfolio-item {
+      display: inline-block;
+      margin: 1rem;
+      transition: transform 0.3s;
+    }
+
+    .portfolio-item:hover {
+      transform: scale(1.02);
+    }
+
+    /* Contact styles */
+    .contact {
+      text-align: center;
+      padding: 4rem 0;
+    }
+
+    .contact-form {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .contact-form input,
+    .contact-form textarea,
+    .contact-form button {
+      display: block;
+      width: 100%;
+      margin-bottom: 1rem;
+      padding: 1rem;
+      font-size: 1.6rem;
+      border: 1px solid #ccc;
+      border-radius: 0.4rem;
+    }
+
+    .success-message {
+      color: #0d9e43;
+      font-size: 1.6rem;
+      margin-top: 1rem;
+      display: none;
+    }
+
+    .error-message {
+      color: #ff0000;
+      font-size: 1.6rem;
+      margin-top: 1rem;
+      display: none;
+    }
+
+    /* Footer styles */
+    footer {
+      background-color: #4158d0;
+      color: #fff;
+      text-align: center;
+      padding: 2rem 0;
+    }
+
+    .back-to-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background-color: #4158d0;
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 4rem;
+      height: 4rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 2rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      z-index: 2;
+    }
+
+    .back-to-top:hover {
+      background-color: #041a86;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Your Portfolio</h1>
+    <nav>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <div class="portfolio" id="portfolio">
+    <div class="title">Portfolio</div>
+    <div class="filter-buttons">
+      <button class="filter-button active" data-filter="all">All</button>
+      <button class="filter-button" data-filter="web">Web</button>
+      <button class="filter-button" data-filter="app">App</button>
+      <button class="filter-button" data-filter="design">Design</button>
+    </div>
+    <!-- Your portfolio items here with data-category attribute -->
+  </div>
+
+  <div class="contact" id="contact">
+    <div class="title">Contact</div>
+    <div class="contact-form">
+      <form>
+        <input type="text" placeholder="Name" required>
+        <input type="email" placeholder="Email" required>
+        <textarea placeholder="Message" rows="4" required></textarea>
+        <button type="submit">Send</button>
+      </form>
+      <div class="success-message">Your message has been sent!</div>
+      <div class="error-message">Oops! Something went wrong. Please try again.</div>
+    </div>
+  </div>
+
+  <footer>
+    <!-- Your existing footer content -->
+    <button class="back-to-top" title="Back to Top">↑</button>
+  </footer>
+
+  <script>
+    // JavaScript for filtering portfolio items
+    document.addEventListener("DOMContentLoaded", function () {
+      const filterButtons = document.querySelectorAll(".filter-button");
+      const portfolioItems = document.querySelectorAll(".portfolio-item");
+
+      filterButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const filterValue = button.getAttribute("data-filter");
+
+          portfolioItems.forEach((item) => {
+            item.style.display = "none";
+            if (item.getAttribute("data-category") === filterValue || filterValue === "all") {
+              item.style.display = "block";
+            }
+          });
+
+          // Add 'active' class to the clicked button
+          filterButtons.forEach((btn) => {
+            btn.classList.remove("active");
+          });
+          button.classList.add("active");
+        });
+      });
+    });
+
+    // JavaScript for handling form submission
+    document.addEventListener("DOMContentLoaded", function () {
+      const contactForm = document.querySelector(".contact-form");
+      const successMessage = document.querySelector(".success-message");
+      const errorMessage = document.querySelector(".error-message");
+
+      contactForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        // Simulate form submission success (you can replace this with actual form submission)
+        const isSuccess = true; // Replace with your logic
+
+        if (isSuccess) {
+          successMessage.style.display = "block";
+          errorMessage.style.display = "none";
+
+          // Clear the form fields
+          contactForm.reset();
+        } else {
+          successMessage.style.display = "none";
+          errorMessage.style.display = "block";
+        }
+      });
+    });
+
+    // JavaScript for smooth scroll to top
+    document.addEventListener("DOMContentLoaded", function () {
+      const backToTopButton = document.querySelector(".back-to-top");
+
+      backToTopButton.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    });
+  </script>
+</body>
+</html>
